@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import Pokemon from "../components/Pokemon";
-import { context } from "../context/PokeContext";
+import useFetch from "../Hooks/useFetch";
 
-const PokemonContainer =  () => {
-  const {pokemon} = useContext(context)
-  return <Pokemon {...pokemon} />;
+const PokemonContainer = () => {
+  const { poke } = useFetch();
+
+  console.log(poke);
+
+  return <Pokemon {...poke} />;
 };
 
 export default PokemonContainer;
