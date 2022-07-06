@@ -1,11 +1,13 @@
 import "./App.css";
-import PokemonContainer from "./containers/PokemonContainer";
+import PokeContainer from "./containers/PokeContainer";
+import { PokeContext, PokeProvider } from "./context/PokeContext";
 
 function App() {
   return (
-    
-      <PokemonContainer />
-   
+    <PokeProvider>
+      <PokeContainer/>
+    </PokeProvider>
+      
   );
 }
 
