@@ -1,11 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Poke from "../components/Poke";
 import { PokeContext } from "../context/PokeContext";
+import useFetch from "../customHooks/useFetch";
 
 const PokeContainer = () => {
-  const { poke } = useContext(PokeContext);
+  const [number, setNumber] = useState(0);
+  const { pokemons } = useFetch(number);
 
-  return <Poke {...poke} />;
+  const handleClick = () => {
+    setNumber((curr) => curr + 1);
+  };
+
+  return (
+    <div>
+      <Poke {...pokemons} />
+      <button onClick={handleClick}>Update {number}</button>
+    </div>
+  );
 };
 
 export default PokeContainer;
