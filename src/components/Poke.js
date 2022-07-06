@@ -1,17 +1,12 @@
-import React, { useContext, useState } from "react";
-import { PokeContext } from "../context/PokeContext";
+import React from "react";
+import "../sass/poke.scss";
 
-const Poke = ({ name, id }) => {
-  
-
-
-
+const Poke = ({ name, id, sprites, weight }) => {
   return (
-    <div>
-      <h1>
-        {name} {id}
-      </h1>
-   
+    <div className="pokemon">
+      <h1>{name}</h1>
+      <img src={sprites ? sprites.front_default : null} />
+      <p>{weight}</p>
     </div>
   );
 };

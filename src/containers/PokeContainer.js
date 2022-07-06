@@ -1,20 +1,27 @@
 import React, { useContext, useState } from "react";
 import Poke from "../components/Poke";
 import { PokeContext } from "../context/PokeContext";
-import useFetch from "../customHooks/useFetch";
+import "../sass/pokeContainer.scss";
 
 const PokeContainer = () => {
-  const [number, setNumber] = useState(0);
-  const { pokemons } = useFetch(number);
+const {number, number2,  lessWeight,  moreWeight, lose, win, pokemons, pokemon2} = useContext(PokeContext)
 
-  const handleClick = () => {
-    setNumber((curr) => curr + 1);
-  };
+  if (lose) {
+    return <div>perdiste</div>;
+  }
 
   return (
-    <div>
-      <Poke {...pokemons} />
-      <button onClick={handleClick}>Update {number}</button>
+    <div className="container">
+      <div className="pokeContainer">
+        <div className="pokeEach">
+          <Poke {...pokemons} />
+        </div>
+        <div className="pokeEach">
+          <Poke name={pokemon2.name} sprites={pokemon2.sprites} />
+          <button onClick={lessWeight}>Pesa menos</button>
+          <button onClick={moreWeight}>Pesa mas</button>
+        </div>
+      </div>
     </div>
   );
 };
