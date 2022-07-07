@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const POKE_API = "http://pokeapi.co/api/v2/pokemon/";
+const POKE_API = "https://pokeapi.co/api/v2/pokemon/";
 
 const useFetch = (number, number2) => {
   const [pokemons, setPokemons] = useState([]);
