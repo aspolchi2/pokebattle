@@ -5,13 +5,14 @@
   align-items: center;
   position: relative;
   &__name {
-    font-family: "Frijole", cursive;
+    color: rgba(0, 0, 0, 0.956);
+    font-family: "Press Start 2P", cursive;
     font-size: 32px;
     position: relative;
-    top: 0;
   }
   &__img {
-    transform: scale(2);
+    transform: scale(1.8);
+    filter: opacity(.9);
   }
   &__attack {
     font-family: "Press Start 2P", cursive;

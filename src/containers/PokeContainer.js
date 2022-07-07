@@ -2,7 +2,9 @@ import React, { useContext } from "react";
 import Poke from "../components/Poke";
 import { PokeContext } from "../context/PokeContext";
 import "../sass/pokeContainer.scss";
-
+import swordUp from "../img/swordUp.png";
+import swordDown from "../img/swordDown.png";
+import { Button } from "@mui/material";
 const PokeContainer = () => {
   const {
     lessAttack,
@@ -13,13 +15,17 @@ const PokeContainer = () => {
     pokemon2,
     pokeAttack,
     pokeAttack2,
-    isLoading,
+    retry,
+    record
   } = useContext(PokeContext);
 
   if (lose) {
     return (
       <div>
-        <h1>perdiste</h1>
+      <div className="title">
+        <h2>You lost</h2>
+        <button  type="submit" onClick={retry}>Retry</button>
+        </div>
         <div className="container">
           <div className="pokeContainer">
             <div className="pokeEach">
@@ -36,10 +42,11 @@ const PokeContainer = () => {
                 pokeAttack={pokeAttack2}
               />
             </div>
-            <div>
-              <p>Consecutive wins : {win}</p>
-            </div>
           </div>
+            <div className="win">
+              <p>Consecutive wins : {win}</p>
+              <p>Best : {record}</p>
+            </div>
         </div>
       </div>
     );
@@ -49,24 +56,27 @@ const PokeContainer = () => {
     <div className="container">
       <div className="pokeContainer">
         <div className="pokeEach">
-          {isLoading ? (
-            <p>loading...</p>
-          ) : (
-            <Poke
-              name={pokemons.name}
-              sprites={pokemons.sprites}
-              pokeAttack={pokeAttack}
-            />
-          )}
+          <Poke
+            name={pokemons.name}
+            sprites={pokemons.sprites}
+            pokeAttack={pokeAttack}
+          />
         </div>
         <div className="pokeEach">
-          {isLoading ? <p>loading...</p> : <Poke {...pokemon2} />}
-          <button onClick={lessAttack}>pega menos</button>
-          <button onClick={greaterAttack}>pega mas</button>
+          <Poke {...pokemon2} />
         </div>
-        <div>
-          <p>Consecutive wins : {win}</p>
+        <div className="buttonsGroup">
+          <Button variant="text" onClick={lessAttack}>
+            <img src={swordDown} alt="Down" />
+          </Button>
+          <Button variant="text" onClick={greaterAttack}>
+            <img src={swordUp} alt="up" />
+          </Button>
         </div>
+      </div>
+      <div className="win">
+        <p>Consecutive wins : {win}</p>
+        <p>Best : {record}</p>
       </div>
     </div>
   );

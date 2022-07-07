@@ -12,6 +12,12 @@ export const PokeProvider = ({ children }) => {
   const { pokemons, pokemon2, pokeAttack, pokeAttack2,isLoading } = useFetch(number, number2);
   const [lose, setLose] = useState(false);
   const [win, setWin] = useState(0);
+  const [record, setRecord] = useState(window.localStorage.getItem('record') || win)
+
+  if (win > record){
+    setRecord(win)
+    window.localStorage.setItem('record', record + 1)
+  }
 
 
   if (number === number2) {
@@ -37,7 +43,12 @@ export const PokeProvider = ({ children }) => {
       setLose(true);
     }
   };
-
+  const retry = () => {
+   setLose(false)
+   setNumber(randomStart)
+   setNumber2(randomStart2)
+   setWin(0)
+  }
   return (
     <PokeContext.Provider
       value={{
@@ -51,7 +62,9 @@ export const PokeProvider = ({ children }) => {
         pokemon2,
         pokeAttack,
         pokeAttack2,
-        isLoading
+        isLoading,
+        retry,
+        record
       }}
     >
       {children}

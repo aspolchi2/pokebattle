@@ -1,5 +1,4 @@
 import React from "react";
-import useFetch from "../customHooks/useFetch";
 import "../sass/poke.scss";
 
 const Poke = ({ name, id, sprites, pokeAttack }) => {
