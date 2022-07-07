@@ -23,3 +23,14 @@
   }
 
 }
+@media only screen and (max-width: 500px) and (min-width: 200px) {  
+  .pokeContainer {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+}  
