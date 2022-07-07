@@ -1,6 +1,19 @@
-.pokemon{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.pokemon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  &__name {
+    font-family: "Frijole", cursive;
+    font-size: 32px;
+    position: relative;
+    top: 0;
+  }
+  &__img {
+    transform: scale(2);
+  }
+  &__attack {
+    font-family: "Press Start 2P", cursive;
+  }
 }

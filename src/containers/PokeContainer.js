@@ -12,7 +12,8 @@ const PokeContainer = () => {
     pokemons,
     pokemon2,
     pokeAttack,
-    pokeAttack2
+    pokeAttack2,
+    isLoading,
   } = useContext(PokeContext);
 
   if (lose) {
@@ -20,26 +21,26 @@ const PokeContainer = () => {
       <div>
         <h1>perdiste</h1>
         <div className="container">
-      <div className="pokeContainer">
-        <div className="pokeEach">
-          <Poke
-            name={pokemons.name}
-            sprites={pokemons.sprites}
-            pokeAttack={pokeAttack}
-          />
+          <div className="pokeContainer">
+            <div className="pokeEach">
+              <Poke
+                name={pokemons.name}
+                sprites={pokemons.sprites}
+                pokeAttack={pokeAttack}
+              />
+            </div>
+            <div className="pokeEach">
+              <Poke
+                name={pokemon2.name}
+                sprites={pokemon2.sprites}
+                pokeAttack={pokeAttack2}
+              />
+            </div>
+            <div>
+              <p>Consecutive wins : {win}</p>
+            </div>
+          </div>
         </div>
-        <div className="pokeEach">
-          <Poke 
-             name={pokemon2.name}
-            sprites={pokemon2.sprites}
-            pokeAttack={pokeAttack2}
-          />
-        </div>
-        <div>
-          <p>Consecutive wins : {win}</p>
-        </div>
-      </div>
-    </div>
       </div>
     );
   }
@@ -48,14 +49,18 @@ const PokeContainer = () => {
     <div className="container">
       <div className="pokeContainer">
         <div className="pokeEach">
-          <Poke
-            name={pokemons.name}
-            sprites={pokemons.sprites}
-            pokeAttack={pokeAttack}
-          />
+          {isLoading ? (
+            <p>loading...</p>
+          ) : (
+            <Poke
+              name={pokemons.name}
+              sprites={pokemons.sprites}
+              pokeAttack={pokeAttack}
+            />
+          )}
         </div>
         <div className="pokeEach">
-          <Poke {...pokemon2} />
+          {isLoading ? <p>loading...</p> : <Poke {...pokemon2} />}
           <button onClick={lessAttack}>pega menos</button>
           <button onClick={greaterAttack}>pega mas</button>
         </div>

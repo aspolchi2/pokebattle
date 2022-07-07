@@ -9,7 +9,7 @@ export const PokeProvider = ({ children }) => {
 
   const [number, setNumber] = useState(randomStart);
   const [number2, setNumber2] = useState(randomStart2);
-  const { pokemons, pokemon2, pokeAttack, pokeAttack2 } = useFetch(number, number2);
+  const { pokemons, pokemon2, pokeAttack, pokeAttack2,isLoading } = useFetch(number, number2);
   const [lose, setLose] = useState(false);
   const [win, setWin] = useState(0);
 
@@ -50,7 +50,8 @@ export const PokeProvider = ({ children }) => {
         pokemons,
         pokemon2,
         pokeAttack,
-        pokeAttack2
+        pokeAttack2,
+        isLoading
       }}
     >
       {children}
