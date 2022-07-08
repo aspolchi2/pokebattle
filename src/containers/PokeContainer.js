@@ -25,7 +25,9 @@ const PokeContainer = () => {
     return (
       <div>
         <div className="title">
-          <h2>You lost</h2>
+          <Zoom>
+            <h2>You lost</h2>
+          </Zoom>
           <button type="submit" onClick={retry}>
             Retry
           </button>
@@ -67,13 +69,11 @@ const PokeContainer = () => {
           />
         </div>
         <div className="pokeEach">
-        { 
-          isLoading ? null :
-          <Zoom>
-            <Poke {...pokemon2} isLoading={isLoading} />
-          </Zoom>
-          
-          }
+          {isLoading ? null : (
+            <Zoom>
+              <Poke {...pokemon2} isLoading={isLoading} />
+            </Zoom>
+          )}
         </div>
         <div className="buttonsGroup">
           <Button variant="text" onClick={lessAttack}>
