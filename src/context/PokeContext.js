@@ -4,21 +4,25 @@ import useFetch from "../customHooks/useFetch";
 export const PokeContext = createContext();
 
 export const PokeProvider = ({ children }) => {
-  const randomStart = Math.floor(Math.random() * 808);
-  const randomStart2 = Math.floor(Math.random() * 808);
+  const randomStart = Math.floor(Math.random() * 905);
+  const randomStart2 = Math.floor(Math.random() * 905);
 
   const [number, setNumber] = useState(randomStart);
   const [number2, setNumber2] = useState(randomStart2);
-  const { pokemons, pokemon2, pokeAttack, pokeAttack2,isLoading } = useFetch(number, number2);
+  const { pokemons, pokemon2, pokeAttack, pokeAttack2, isLoading } = useFetch(
+    number,
+    number2
+  );
   const [lose, setLose] = useState(false);
   const [win, setWin] = useState(0);
-  const [record, setRecord] = useState(window.localStorage.getItem('record') || win)
+  const [record, setRecord] = useState(
+    window.localStorage.getItem("record") || win
+  );
 
-  if (win > record){
-    setRecord(win)
-    window.localStorage.setItem('record', record + 1)
+  if (win > record) {
+    setRecord(win);
+    window.localStorage.setItem("record", record + 1);
   }
-
 
   if (number === number2) {
     setNumber2(randomStart);
@@ -26,8 +30,8 @@ export const PokeProvider = ({ children }) => {
 
   const lessAttack = () => {
     if (pokemons.stats[1].base_stat >= pokemon2.stats[1].base_stat) {
+      setNumber2(Math.floor(Math.random() * 905));
       setWin((current) => current + 1);
-      setNumber2(Math.floor(Math.random() * 808));
     } else {
       setLose(true);
     }
@@ -35,20 +39,20 @@ export const PokeProvider = ({ children }) => {
 
   const greaterAttack = () => {
     if (pokemon2.stats[1].base_stat >= pokemons.stats[1].base_stat) {
+      console.log(isLoading)
       setWin((current) => current + 1);
       setNumber(number2);
-      setNumber2(Math.floor(Math.random() * 808));
-
+      setNumber2(Math.floor(Math.random() * 905));
     } else {
       setLose(true);
     }
   };
   const retry = () => {
-   setLose(false)
-   setNumber(randomStart)
-   setNumber2(randomStart2)
-   setWin(0)
-  }
+    setLose(false);
+    setNumber(randomStart);
+    setNumber2(randomStart2);
+    setWin(0);
+  };
   return (
     <PokeContext.Provider
       value={{
@@ -62,9 +66,9 @@ export const PokeProvider = ({ children }) => {
         pokemon2,
         pokeAttack,
         pokeAttack2,
-        isLoading,
         retry,
-        record
+        record,
+        isLoading
       }}
     >
       {children}

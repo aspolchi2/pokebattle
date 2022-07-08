@@ -5,6 +5,7 @@ import "../sass/pokeContainer.scss";
 import swordUp from "../img/swordUp.png";
 import swordDown from "../img/swordDown.png";
 import { Button } from "@mui/material";
+import { Zoom } from "react-awesome-reveal";
 const PokeContainer = () => {
   const {
     lessAttack,
@@ -16,15 +17,18 @@ const PokeContainer = () => {
     pokeAttack,
     pokeAttack2,
     retry,
-    record
+    record,
+    isLoading,
   } = useContext(PokeContext);
 
   if (lose) {
     return (
       <div>
-      <div className="title">
-        <h2>You lost</h2>
-        <button  type="submit" onClick={retry}>Retry</button>
+        <div className="title">
+          <h2>You lost</h2>
+          <button type="submit" onClick={retry}>
+            Retry
+          </button>
         </div>
         <div className="container">
           <div className="pokeContainer">
@@ -43,10 +47,10 @@ const PokeContainer = () => {
               />
             </div>
           </div>
-            <div className="win">
-              <p>Consecutive wins : {win}</p>
-              <p>Best : {record}</p>
-            </div>
+          <div className="win">
+            <p>Consecutive wins : {win}</p>
+            <p>Best : {record}</p>
+          </div>
         </div>
       </div>
     );
@@ -63,7 +67,13 @@ const PokeContainer = () => {
           />
         </div>
         <div className="pokeEach">
-          <Poke {...pokemon2} />
+        { 
+          isLoading ? null :
+          <Zoom>
+            <Poke {...pokemon2} isLoading={isLoading} />
+          </Zoom>
+          
+          }
         </div>
         <div className="buttonsGroup">
           <Button variant="text" onClick={lessAttack}>
