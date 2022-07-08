@@ -9,7 +9,7 @@ export const PokeProvider = ({ children }) => {
 
   const [number, setNumber] = useState(randomStart);
   const [number2, setNumber2] = useState(randomStart2);
-  const { pokemons, pokemon2, pokeAttack, pokeAttack2, isLoading } = useFetch(
+  const { pokemons, pokemon2, pokeAttack, pokeAttack2, isLoading, setIsloading } = useFetch(
     number,
     number2
   );
@@ -30,8 +30,10 @@ export const PokeProvider = ({ children }) => {
 
   const lessAttack = () => {
     if (pokemons.stats[1].base_stat >= pokemon2.stats[1].base_stat) {
+      setIsloading(true)
       setNumber2(Math.floor(Math.random() * 905));
       setWin((current) => current + 1);
+     
     } else {
       setLose(true);
     }
@@ -39,6 +41,7 @@ export const PokeProvider = ({ children }) => {
 
   const greaterAttack = () => {
     if (pokemon2.stats[1].base_stat >= pokemons.stats[1].base_stat) {
+      setIsloading(true)
       console.log(isLoading)
       setWin((current) => current + 1);
       setNumber(number2);

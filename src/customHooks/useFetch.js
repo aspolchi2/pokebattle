@@ -9,24 +9,31 @@ const useFetch = (number, number2) => {
   const [isLoading, setIsloading] = useState(false);
 
   useEffect(() => {
-    setIsloading(true);
+    setIsloading(true)
     fetch(`${POKE_API}${number}`)
       .then((res) => res.json())
       .then((data) => setPokemons(data))
-      .then(setIsloading(false));
+      .finally(setIsloading(false));
   }, [number]);
 
   useEffect(() => {
-    setIsloading(true);
+    setIsloading(true)
     fetch(`${POKE_API}${number2}`)
       .then((res2) => res2.json())
       .then((data2) => setPokemon2(data2))
-      .then(setIsloading(false));
+      .finally(setIsloading(false));
   }, [number2]);
 
   const pokeAttack = pokemons.stats;
   const pokeAttack2 = pokemon2.stats;
-  return { pokemons, pokemon2, pokeAttack, pokeAttack2, isLoading };
+  return {
+    pokemons,
+    pokemon2,
+    pokeAttack,
+    pokeAttack2,
+    isLoading,
+    setIsloading,
+  };
 };
 
 export default useFetch;
