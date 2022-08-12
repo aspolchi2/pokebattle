@@ -21,74 +21,55 @@ const PokeContainer = () => {
     isLoading,
   } = useContext(PokeContext);
 
-  if (lose) {
-    return (
-      <div>
-        <div className="title">
-          <Zoom>
-            <h2>You lost</h2>
-          </Zoom>
-          <button type="submit" onClick={retry}>
-            Retry
-          </button>
-        </div>
-        <div className="container">
-          <div className="pokeContainer">
-            <div className="pokeEach">
-              <Poke
-                name={pokemons.name}
-                sprites={pokemons.sprites}
-                pokeAttack={pokeAttack}
-              />
-            </div>
-            <div className="pokeEach">
-              <Poke
-                name={pokemon2.name}
-                sprites={pokemon2.sprites}
-                pokeAttack={pokeAttack2}
-              />
-            </div>
-          </div>
-          <div className="win">
-            <p>Consecutive wins : {win}</p>
-            <p>Best : {record}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="container">
-      <div className="pokeContainer">
-        <div className="pokeEach">
-          <Poke
-            name={pokemons.name}
-            sprites={pokemons.sprites}
-            pokeAttack={pokeAttack}
-          />
-        </div>
-        <div className="pokeEach">
-          {isLoading ? null : (
+    <>
+      <div className="title">
+        {lose && (
+          <>
             <Zoom>
-              <Poke {...pokemon2} isLoading={isLoading} />
+              <h2>You lost</h2>
             </Zoom>
-          )}
+            <button type="submit" onClick={retry}>
+              Retry
+            </button>
+          </>
+        )}
+      </div>
+      <div className="container">
+        <div className="pokeContainer">
+          <div className="pokeEach">
+            <Poke
+              name={pokemons.name}
+              sprites={pokemons.sprites}
+              pokeAttack={pokeAttack}
+            />
+          </div>
+          <div className="pokeEach">
+            {lose ? (
+              <Zoom>
+                <Poke {...pokemon2} pokeAttack={pokeAttack2} />
+              </Zoom>
+            ) : (
+              <Zoom>
+                <Poke {...pokemon2} isLoading={isLoading} />
+              </Zoom>
+            )}
+          </div>
+          <div className="buttonsGroup">
+            <Button variant="text" onClick={lessAttack}>
+              <img src={swordDown} alt="Down" />
+            </Button>
+            <Button variant="text" onClick={greaterAttack}>
+              <img src={swordUp} alt="up" />
+            </Button>
+          </div>
         </div>
-        <div className="buttonsGroup">
-          <Button variant="text" onClick={lessAttack}>
-            <img src={swordDown} alt="Down" />
-          </Button>
-          <Button variant="text" onClick={greaterAttack}>
-            <img src={swordUp} alt="up" />
-          </Button>
+        <div className="win">
+          <p>Consecutive wins : {win}</p>
+          <p>Best : {record}</p>
         </div>
       </div>
-      <div className="win">
-        <p>Consecutive wins : {win}</p>
-        <p>Best : {record}</p>
-      </div>
-    </div>
+    </>
   );
 };
 

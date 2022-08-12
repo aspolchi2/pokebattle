@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { PokeContext } from "../context/PokeContext";
+import { useEffect, useState } from "react";
 
 const POKE_API = "https://pokeapi.co/api/v2/pokemon/";
 
