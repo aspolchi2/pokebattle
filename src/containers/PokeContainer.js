@@ -4,8 +4,9 @@ import { PokeContext } from "../context/PokeContext";
 import "../sass/pokeContainer.scss";
 import swordUp from "../img/swordUp.png";
 import swordDown from "../img/swordDown.png";
-import { Button } from "@mui/material";
 import { Zoom } from "react-awesome-reveal";
+import Loser from "../components/Loser";
+import MyButton from "../components/MyButton";
 const PokeContainer = () => {
   const {
     lessAttack,
@@ -16,35 +17,24 @@ const PokeContainer = () => {
     pokemon2,
     pokeAttack,
     pokeAttack2,
-    retry,
     record,
     isLoading,
+    data,
   } = useContext(PokeContext);
 
   return (
     <>
-      <div className="title">
-        {lose && (
-          <>
-            <Zoom>
-              <h2>You lost</h2>
-            </Zoom>
-            <button type="submit" onClick={retry}>
-              Retry
-            </button>
-          </>
-        )}
-      </div>
+      {lose && <Loser />}
       <div className="container">
         <div className="pokeContainer">
           <div className="pokeEach">
             <Poke
-              name={pokemons.name}
-              sprites={pokemons.sprites}
+              name={data.name}
+              sprites={data.sprites}
               pokeAttack={pokeAttack}
             />
           </div>
-          <div className="pokeEach">
+          {/* <div className="pokeEach">
             {lose ? (
               <Zoom>
                 <Poke {...pokemon2} pokeAttack={pokeAttack2} />
@@ -56,13 +46,9 @@ const PokeContainer = () => {
             )}
           </div>
           <div className="buttonsGroup">
-            <Button variant="text" onClick={lessAttack}>
-              <img src={swordDown} alt="Down" />
-            </Button>
-            <Button variant="text" onClick={greaterAttack}>
-              <img src={swordUp} alt="up" />
-            </Button>
-          </div>
+            <MyButton onClick={lessAttack} src={swordDown} />
+            <MyButton onClick={greaterAttack} src={swordUp} />
+          </div> */}
         </div>
         <div className="win">
           <p>Consecutive wins : {win}</p>

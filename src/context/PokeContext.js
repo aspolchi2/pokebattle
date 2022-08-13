@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 import useFetch from "../customHooks/useFetch";
+import { useQuery } from "@tanstack/react-query";
 
 export const PokeContext = createContext();
 
@@ -9,10 +10,13 @@ export const PokeProvider = ({ children }) => {
 
   const [number, setNumber] = useState(randomStart);
   const [number2, setNumber2] = useState(randomStart2);
-  const { pokemons, pokemon2, pokeAttack, pokeAttack2, isLoading, setIsloading } = useFetch(
-    number,
-    number2
-  );
+  const {
+    pokemons,
+    pokemon2,
+    pokeAttack,
+    pokeAttack2,
+    setIsloading,
+  } = useFetch(number, number2);
   const [lose, setLose] = useState(false);
   const [win, setWin] = useState(0);
   const [record, setRecord] = useState(
@@ -28,12 +32,17 @@ export const PokeProvider = ({ children }) => {
     setNumber2(randomStart);
   }
 
+  const getPokes = async () => {
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon/");
+    return response.json();
+  };
+  const { data, isLoading, isError } = useQuery("pokemones", getPokes);
+
   const lessAttack = () => {
     if (pokemons.stats[1].base_stat >= pokemon2.stats[1].base_stat) {
-      setIsloading(true)
+      setIsloading(true);
       setNumber2(Math.floor(Math.random() * 905));
       setWin((current) => current + 1);
-     
     } else {
       setLose(true);
     }
@@ -41,8 +50,8 @@ export const PokeProvider = ({ children }) => {
 
   const greaterAttack = () => {
     if (pokemon2.stats[1].base_stat >= pokemons.stats[1].base_stat) {
-      setIsloading(true)
-      console.log(isLoading)
+      setIsloading(true);
+      console.log(isLoading);
       setWin((current) => current + 1);
       setNumber(number2);
       setNumber2(Math.floor(Math.random() * 905));
@@ -71,7 +80,8 @@ export const PokeProvider = ({ children }) => {
         pokeAttack2,
         retry,
         record,
-        isLoading
+        isLoading,
+        data,
       }}
     >
       {children}
