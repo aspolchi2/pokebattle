@@ -29,9 +29,8 @@ const PokeContainer = () => {
         <div className="pokeContainer">
           <div className="pokeEach">
             <Poke
-              name={data.name}
-              sprites={data.sprites}
-              pokeAttack={pokeAttack}
+              name={data?.name}
+              sprites={data?.sprites}
             />
           </div>
           {/* <div className="pokeEach">

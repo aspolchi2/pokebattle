@@ -14,7 +14,7 @@ const queryClient = new QueryClient();
 function App() {
 
   return (
-    <QueryClientProvider client={QueryClient}>
+    <QueryClientProvider client={queryClient}>
       <PokeProvider>
         <div className="title">
           <h1>Weaker or Stronger ?</h1>

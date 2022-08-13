@@ -33,10 +33,11 @@ export const PokeProvider = ({ children }) => {
   }
 
   const getPokes = async () => {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon/");
+    const response = await fetch("https://pokeapi.co/api/v2/pokemon/1");
     return response.json();
   };
-  const { data, isLoading, isError } = useQuery("pokemones", getPokes);
+
+  const { data, isLoading } = useQuery(["pokemones"], getPokes);
 
   const lessAttack = () => {
     if (pokemons.stats[1].base_stat >= pokemon2.stats[1].base_stat) {
