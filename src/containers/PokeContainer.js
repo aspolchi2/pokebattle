@@ -2,26 +2,22 @@ import React, { useContext } from "react";
 import Poke from "../components/Poke";
 import { PokeContext } from "../context/PokeContext";
 import "../sass/pokeContainer.scss";
+import Loser from "../components/Loser";
+import { Zoom } from "react-awesome-reveal";
+import MyButton from "../components/MyButton";
 import swordUp from "../img/swordUp.png";
 import swordDown from "../img/swordDown.png";
-import { Zoom } from "react-awesome-reveal";
-import Loser from "../components/Loser";
-import MyButton from "../components/MyButton";
+
 const PokeContainer = () => {
   const {
-    lessAttack,
-    greaterAttack,
     lose,
     win,
-    pokemons,
-    pokemon2,
-    pokeAttack,
-    pokeAttack2,
     record,
-    isLoading,
-    data,
+    firstPoke,
+    secondPoke,
+    isLower,
+    isHigher,
   } = useContext(PokeContext);
-
   return (
     <>
       {lose && <Loser />}
@@ -29,25 +25,31 @@ const PokeContainer = () => {
         <div className="pokeContainer">
           <div className="pokeEach">
             <Poke
-              name={data?.name}
-              sprites={data?.sprites}
+              name={firstPoke?.name}
+              sprites={firstPoke?.sprites}
+              pokeAttack={firstPoke?.stats[1].base_stat}
             />
           </div>
-          {/* <div className="pokeEach">
+          <div className="pokeEach">
             {lose ? (
               <Zoom>
-                <Poke {...pokemon2} pokeAttack={pokeAttack2} />
+                <Poke
+                  {...secondPoke}
+                  pokeAttack={secondPoke?.stats[1].base_stat}
+                />
               </Zoom>
             ) : (
               <Zoom>
-                <Poke {...pokemon2} isLoading={isLoading} />
+                <Poke {...secondPoke} />
               </Zoom>
             )}
           </div>
-          <div className="buttonsGroup">
-            <MyButton onClick={lessAttack} src={swordDown} />
-            <MyButton onClick={greaterAttack} src={swordUp} />
-          </div> */}
+          {lose || (
+            <div className="buttonsGroup">
+              <MyButton onClick={isLower} src={swordDown} />
+              <MyButton onClick={isHigher} src={swordUp} />
+            </div>
+          )}
         </div>
         <div className="win">
           <p>Consecutive wins : {win}</p>

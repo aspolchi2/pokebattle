@@ -3,9 +3,6 @@ import "./sass/global.scss";
 import PokeContainer from "./containers/PokeContainer";
 import { PokeProvider } from "./context/PokeContext";
 import {
-  useQuery,
-  useMutation,
-  useQueryClient,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";

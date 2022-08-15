@@ -1,22 +1,17 @@
-import { createContext, useState } from "react";
-import useFetch from "../customHooks/useFetch";
+import { createContext, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 export const PokeContext = createContext();
+const POKE_API = "https://pokeapi.co/api/v2/pokemon/";
+const randomNumber = Math.floor(Math.random() * 908);
 
 export const PokeProvider = ({ children }) => {
-  const randomStart = Math.floor(Math.random() * 905);
-  const randomStart2 = Math.floor(Math.random() * 905);
+  const [firstRandom, setFirstRandom] = useState(
+    Math.floor(Math.random() * 908)
+  );
 
-  const [number, setNumber] = useState(randomStart);
-  const [number2, setNumber2] = useState(randomStart2);
-  const {
-    pokemons,
-    pokemon2,
-    pokeAttack,
-    pokeAttack2,
-    setIsloading,
-  } = useFetch(number, number2);
+  const [firstPoke, setFirstPoke] = useState();
+  const [secondPoke, setSecondPoke] = useState();
   const [lose, setLose] = useState(false);
   const [win, setWin] = useState(0);
   const [record, setRecord] = useState(
@@ -27,62 +22,71 @@ export const PokeProvider = ({ children }) => {
     setRecord(win);
     window.localStorage.setItem("record", record + 1);
   }
-
-  if (number === number2) {
-    setNumber2(randomStart);
+  async function getPokes({ queryKey }) {
+    const response = await fetch(`${POKE_API}${queryKey[1]}`);
+    return response.json();
   }
 
-  const getPokes = async () => {
-    const response = await fetch("https://pokeapi.co/api/v2/pokemon/1");
-    return response.json();
+  const { data, isLoading } = useQuery(["pokemon", firstRandom], getPokes);
+
+  useEffect(() => {
+    function catchFirstPoke() {
+      fetch(`${POKE_API}${randomNumber}`)
+        .then((res) => res.json())
+        .then((data) => setFirstPoke(data));
+    }
+    catchFirstPoke();
+  }, []);
+
+  useEffect(() => {
+    setSecondPoke(data);
+    // setBaseStatSecondPoke(firstPoke?.stats[1].base_stat)
+  }, [data]);
+
+  const setRandom = () => {
+    setFirstRandom(Math.floor(Math.random() * 908));
   };
 
-  const { data, isLoading } = useQuery(["pokemones"], getPokes);
-
-  const lessAttack = () => {
-    if (pokemons.stats[1].base_stat >= pokemon2.stats[1].base_stat) {
-      setIsloading(true);
-      setNumber2(Math.floor(Math.random() * 905));
-      setWin((current) => current + 1);
+  const isLower = () => {
+    if (firstPoke?.stats[1].base_stat >= secondPoke?.stats[1].base_stat) {
+      setFirstRandom(Math.floor(Math.random() * 908));
+      setFirstPoke(secondPoke);
+      setWin((prev) => prev + 1);
+    } else {
+      setLose(true);
+    }
+  };
+  const isHigher = () => {
+    if (firstPoke?.stats[1].base_stat <= secondPoke?.stats[1].base_stat) {
+      setFirstRandom(Math.floor(Math.random() * 908));
+      setFirstPoke(secondPoke);
+      setWin((prev) => prev + 1);
     } else {
       setLose(true);
     }
   };
 
-  const greaterAttack = () => {
-    if (pokemon2.stats[1].base_stat >= pokemons.stats[1].base_stat) {
-      setIsloading(true);
-      console.log(isLoading);
-      setWin((current) => current + 1);
-      setNumber(number2);
-      setNumber2(Math.floor(Math.random() * 905));
-    } else {
-      setLose(true);
-    }
-  };
   const retry = () => {
     setLose(false);
-    setNumber(randomStart);
-    setNumber2(randomStart2);
     setWin(0);
+    setFirstRandom(Math.floor(Math.random() * 908));
+    setFirstPoke(secondPoke);
   };
+
   return (
     <PokeContext.Provider
       value={{
-        number,
-        number2,
-        lessAttack,
-        greaterAttack,
         lose,
         win,
-        pokemons,
-        pokemon2,
-        pokeAttack,
-        pokeAttack2,
-        retry,
         record,
         isLoading,
         data,
+        firstPoke,
+        secondPoke,
+        setRandom,
+        isLower,
+        isHigher,
+        retry,
       }}
     >
       {children}
