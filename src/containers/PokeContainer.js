@@ -24,20 +24,20 @@ const PokeContainer = () => {
       <div className="container">
         <div className="pokeContainer">
           <div className="pokeEach">
-            <Poke {...firstPoke} pokeAttack={firstPoke?.stats[1].base_stat} />
+            {firstPoke && (
+              <Poke
+                name={firstPoke.name}
+                sprites={firstPoke.sprites}
+                pokeAttack={firstPoke.stats[1].base_stat}
+              />
+            )}
           </div>
           <div className="pokeEach">
-            {lose ? (
-              <Zoom>
-                <Poke
-                  {...secondPoke}
-                  pokeAttack={secondPoke?.stats[1].base_stat}
-                />
-              </Zoom>
-            ) : (
-              <Zoom>
-                <Poke {...secondPoke} />
-              </Zoom>
+            {secondPoke && (
+              <Poke
+                {...secondPoke}
+                pokeAttack={lose && secondPoke.stats[1].base_stat}
+              />
             )}
           </div>
           {lose || (
