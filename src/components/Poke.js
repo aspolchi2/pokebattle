@@ -18,7 +18,6 @@ const Poke = ({ name, sprites, pokeAttack }) => {
         Base Attack = {pokeAttack ? pokeAttack : "??"}
       </p>
     </div>
-
     </Bounce>
   );
 };
