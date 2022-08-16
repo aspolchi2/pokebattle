@@ -24,11 +24,13 @@ const PokeContainer = () => {
       <div className="container">
         <div className="pokeContainer">
           <div className="pokeEach">
-            <Poke
-              name={firstPoke?.name}
-              sprites={firstPoke?.sprites}
-              pokeAttack={firstPoke?.stats[1].base_stat}
-            />
+            {firstPoke ? (
+              <Poke
+                name={firstPoke.name}
+                sprites={firstPoke.sprites}
+                pokeAttack={firstPoke.stats[1].base_stat}
+              />
+            ) : null}
           </div>
           <div className="pokeEach">
             {lose ? (
