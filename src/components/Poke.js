@@ -1,12 +1,12 @@
 import React from "react";
 import "../sass/poke.scss";
-import { Zoom } from "react-awesome-reveal";
+import { Zoom, Fade,Flip, AttentionSeeker, JackInTheBox, Hinge, Reveal, Slide, Bounce } from "react-awesome-reveal";
 
 
 const Poke = ({ name, sprites, pokeAttack }) => {
 
   return (
-    <Zoom>
+    <Bounce >
     <div className="pokemon">
       <h1 className="pokemon__name">{name}</h1>
       <img
@@ -18,7 +18,7 @@ const Poke = ({ name, sprites, pokeAttack }) => {
         Base Attack = {pokeAttack ? pokeAttack : "??"}
       </p>
     </div>
-    </Zoom>
+    </Bounce>
   );
 };
 
